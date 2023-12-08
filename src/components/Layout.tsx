@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoginModal from "./LoginModal";
 import { useRecoilState } from "recoil";
 import { loginModalState } from "../atom";
+import Footer from "./Footer";
 
 const Layout = () => {
   const [modal, setModal] = useRecoilState(loginModalState);
@@ -36,6 +37,7 @@ const Layout = () => {
       )}
       <Nav onClickLogin={onClickLogin} onClickSignUp={onClickSignUp} />
       <Outlet />
+      <Footer />
     </div>
   );
 };

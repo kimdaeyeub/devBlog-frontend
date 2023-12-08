@@ -25,10 +25,10 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
   };
 
   return (
-    <div className="w-full px-20 py-6 bg-gray-800 flex justify-between items-center text-white">
+    <div className="w-full px-20 py-8 bg-gray-800 flex justify-between items-center text-white">
       {/* 데스크탑 네비게이션 */}
-      <h1 className="text-3xl font-bold" onClick={onClickLogo}>
-        Logo
+      <h1 className="text-5xl font-bold" onClick={onClickLogo}>
+        DevBlog
       </h1>
 
       <div className="flex justify-center items-center space-x-12">
