@@ -6,8 +6,8 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const loginAPI = async (username: string, password: string) => {
-  await instance
+export const loginAPI = async (username: string, password: string) =>
+  instance
     .post(
       "users/login/",
       { username, password },
@@ -15,7 +15,39 @@ export const loginAPI = async (username: string, password: string) => {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
         },
-      },
+      }
     )
     .then((response) => response.data);
-};
+
+export const getMeAPI = async () =>
+  instance.get("users/me/").then((response) => response.data);
+
+export const logoutAPI = async () =>
+  instance
+    .post("users/logout/", null, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);
+
+export const signUpAPI = async ({
+  username,
+  password,
+  name,
+}: {
+  username: string;
+  password: string;
+  name: string;
+}) =>
+  instance
+    .post(
+      "users/signup/",
+      { username, password, name },
+      {
+        headers: {
+          "X-CSRFToken": Cookie.get("csrftoken") || "",
+        },
+      }
+    )
+    .then((response) => response.data);
