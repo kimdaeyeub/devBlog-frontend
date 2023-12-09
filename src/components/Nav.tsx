@@ -24,19 +24,26 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
     queryClient.refetchQueries(["me"]);
   };
 
+  const onClickAddPost = () => {
+    navigate("/post/add");
+  };
+
   return (
-    <div className="w-full px-20 py-8 bg-gray-800 flex justify-between items-center text-white">
+    <div className="w-full px-20 py-8 bg-black flex justify-between items-center text-white border-b border-gray-700">
       {/* 데스크탑 네비게이션 */}
-      <h1 className="text-5xl font-bold" onClick={onClickLogo}>
+      <h1 className="text-5xl font-bold cursor-pointer" onClick={onClickLogo}>
         DevBlog
       </h1>
 
       <div className="flex justify-center items-center space-x-12">
         {/* 항목 */}
-        {/* 로그인버튼 or 아바타 이미지 */}
-        {!isError && !isLoading ? (
+        {/* TODO: 나중에 !isError && !isLoading 으로 다시 수정해야함*/}
+        {isError || isLoading ? (
           <div className="flex justify-center items-center space-x-4">
-            <span className="text-lg font-medium cursor-pointer mr-8">
+            <span
+              onClick={onClickAddPost}
+              className="text-lg font-medium cursor-pointer mr-8"
+            >
               새 글 추가
             </span>
             <button

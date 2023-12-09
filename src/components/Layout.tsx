@@ -22,6 +22,7 @@ const Layout = () => {
     setModal(false);
     setSignUp(false);
   };
+
   return (
     <div className="relative min-h-screen">
       {modal && (
