@@ -29,7 +29,7 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
   };
 
   return (
-    <div className="w-full px-20 py-8 bg-black flex justify-between items-center text-white border-b border-gray-700">
+    <div className="w-full px-60 py-8 bg-[#0d1117] flex justify-between items-center text-white border-b border-gray-700">
       {/* 데스크탑 네비게이션 */}
       <h1 className="text-5xl font-bold cursor-pointer" onClick={onClickLogo}>
         DevBlog
@@ -38,7 +38,7 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
       <div className="flex justify-center items-center space-x-12">
         {/* 항목 */}
         {/* TODO: 나중에 !isError && !isLoading 으로 다시 수정해야함*/}
-        {isError || isLoading ? (
+        {!isError && !isLoading ? (
           <div className="flex justify-center items-center space-x-4">
             <span
               onClick={onClickAddPost}

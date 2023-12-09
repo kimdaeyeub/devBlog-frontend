@@ -51,3 +51,23 @@ export const signUpAPI = async ({
       }
     )
     .then((response) => response.data);
+
+interface IPost {
+  title: string;
+  description: string;
+}
+
+export const addPostAPI = async (post: IPost) =>
+  instance
+    .post("posts/add/", post, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);
+
+export const getAllMyPostAPI = async () =>
+  instance.get("posts/").then((response) => response.data);
+
+export const getPostDetailAPI = async (id: string) =>
+  instance.get(`posts/${id}`).then((response) => response.data);
