@@ -3,6 +3,7 @@ import Layout from "./components/Layout";
 import Detail from "./routes/Detail";
 import Home from "./routes/Home";
 import AddPost from "./routes/AddPost";
+import Profile from "./routes/Profile";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "post/add",
         element: <AddPost />,
+      },
+      {
+        path: "my-profile",
+        element: <Profile />,
       },
     ],
   },

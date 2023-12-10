@@ -15,7 +15,7 @@ export const loginAPI = async (username: string, password: string) =>
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
         },
-      }
+      },
     )
     .then((response) => response.data);
 
@@ -48,7 +48,7 @@ export const signUpAPI = async ({
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
         },
-      }
+      },
     )
     .then((response) => response.data);
 
@@ -66,8 +66,11 @@ export const addPostAPI = async (post: IPost) =>
     })
     .then((response) => response.data);
 
-export const getAllMyPostAPI = async () =>
+export const getAllPostAPI = async () =>
   instance.get("posts/").then((response) => response.data);
 
 export const getPostDetailAPI = async (id: string) =>
   instance.get(`posts/${id}`).then((response) => response.data);
+
+export const getMyPostAPI = async () =>
+  instance.get("posts/my/").then((response) => response.data);

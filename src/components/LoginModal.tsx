@@ -35,6 +35,7 @@ const LoginModal = ({ signUp }: IProp) => {
     if (!signUp) {
       await loginAPI(username, password);
       queryClient.refetchQueries(["me"]);
+      queryClient.refetchQueries(["posts"]);
       setLoginModal(false);
     } else {
       if (password !== passwordConfirm) {

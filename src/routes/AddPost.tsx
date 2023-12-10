@@ -27,7 +27,7 @@ const AddPost = () => {
   };
   return (
     <div className="w-full bg-[#0E1117]">
-      <div className="w-full h-full grid grid-cols-2">
+      <div className="w-full h-full grid md:grid-cols-2">
         <div className="w-full h-full flex flex-col justify-between items-end bg-[#131a22] py-10 px-10">
           <div className="w-full flex justify-center items-center space-x-3">
             <span className="text-3xl text-gray-300 text-center">title:</span>
@@ -52,9 +52,9 @@ const AddPost = () => {
           </button>
         </div>
         {/* 마크다운 미리보기 */}
-        <div className="w-full h-full p-3">
+        <div className="w-full h-full p-3 hidden md:flex">
           <MarkdownPreview
-            className=" text-gray-500 break-words "
+            className=" text-gray-500 break-words min-h-screen"
             source={markdown}
           />
         </div>

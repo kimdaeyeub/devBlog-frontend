@@ -9,6 +9,7 @@ interface IProp {
 }
 
 const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
+  const [toggleDropDown, setToggleDropDown] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isLoading, isError, data } = useQuery(["me"], getMeAPI, {
@@ -17,19 +18,33 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
 
   const onClickLogo = () => {
     navigate("/");
+    setToggleDropDown(false);
   };
 
   const onClickLogout = async () => {
     await logoutAPI();
     queryClient.refetchQueries(["me"]);
+    setToggleDropDown(false);
   };
 
   const onClickAddPost = () => {
     navigate("/post/add");
+    setToggleDropDown(false);
+  };
+
+  const onClickAvatar = (type: string) => {
+    if (type === "mobile") {
+      //dropdown 메뉴를 연다.
+      setToggleDropDown(!toggleDropDown);
+    } else {
+      //profile 페이지로 이동한다.
+      navigate("/my-profile");
+      setToggleDropDown(false);
+    }
   };
 
   return (
-    <div className="w-full px-60 py-8 bg-[#0d1117] flex justify-between items-center text-white border-b border-gray-700">
+    <div className="w-full xl:px-52 lg:px-44 md:px-32 sm:px-20 px-10 py-8 bg-[#0d1117] flex justify-between items-center text-white border-b border-gray-700">
       {/* 데스크탑 네비게이션 */}
       <h1 className="text-5xl font-bold cursor-pointer" onClick={onClickLogo}>
         DevBlog
@@ -39,10 +54,10 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
         {/* 항목 */}
         {/* TODO: 나중에 !isError && !isLoading 으로 다시 수정해야함*/}
         {!isError && !isLoading ? (
-          <div className="flex justify-center items-center space-x-4">
+          <div className="flex justify-center items-center space-x-4 relative">
             <span
               onClick={onClickAddPost}
-              className="text-lg font-medium cursor-pointer mr-8"
+              className="text-lg font-medium cursor-pointer mr-8 md:flex hidden"
             >
               새 글 추가
             </span>
@@ -52,7 +67,38 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
             >
               로그아웃
             </button>
-            <div className="w-14 h-14 rounded-full bg-gray-300" />
+            {/* 아바타 이미지 */}
+            <div
+              onClick={() => onClickAvatar("mobile")}
+              className="md:hidden flex w-14 h-14 rounded-full bg-gray-300"
+            />
+            <div
+              onClick={() => onClickAvatar("desktop")}
+              className="md:flex  hidden w-14 h-14 rounded-full bg-gray-300"
+            />
+            {/*dropdown 메뉴*/}
+            {toggleDropDown && (
+              <div className="md:hidden absolute bg-white top-full right-0 min-w-[220px] min-h-[130px] rounded-lg mt-3 text-black flex flex-col justify-center items-center px-4 py-2">
+                <button
+                  onClick={() => onClickAvatar("desktop")}
+                  className="border-b border-gray-300 w-full py-3 h-full"
+                >
+                  나의 프로필
+                </button>
+                <button
+                  onClick={onClickAddPost}
+                  className="border-b border-gray-300 w-full py-3 h-full text-center"
+                >
+                  새 글 추가
+                </button>
+                <button
+                  onClick={onClickLogout}
+                  className="border-b border-gray-300 w-full py-3 h-full"
+                >
+                  로그아웃
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <div className="flex justify-center items-center space-x-4">
