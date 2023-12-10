@@ -35,15 +35,17 @@ export const signUpAPI = async ({
   username,
   password,
   name,
+  email,
 }: {
   username: string;
   password: string;
   name: string;
+  email: string;
 }) =>
   instance
     .post(
       "users/signup/",
-      { username, password, name },
+      { username, password, name, email },
       {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
@@ -55,6 +57,7 @@ export const signUpAPI = async ({
 interface IPost {
   title: string;
   description: string;
+  categories: string;
 }
 
 export const addPostAPI = async (post: IPost) =>
@@ -74,3 +77,25 @@ export const getPostDetailAPI = async (id: string) =>
 
 export const getMyPostAPI = async () =>
   instance.get("posts/my/").then((response) => response.data);
+
+export const deletPostAPI = async (id: string) =>
+  instance
+    .delete(`posts/${id}`, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);
+
+interface IEditPost {
+  id: string;
+  code: IPost;
+}
+export const editPostAPI = async ({ id, code }: IEditPost) =>
+  instance
+    .put(`posts/${id}/`, code, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);

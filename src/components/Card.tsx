@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IPost } from "../types";
 
@@ -30,7 +29,16 @@ const Card = (post: IPost) => {
             ></path>
           </svg>
         </div>
-        <p className="mt-3 text-gray-400 line-clamp-3">{post.description}</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {post.categories.split(",").map((item) => (
+            <div
+              key={item}
+              className="px-4 py-2 rounded-full bg-gray-400 text-black"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
       <div className="w-full flex justify-start items-center space-x-4 text-gray-400">
         <span>{post.created_at.slice(0, 10)}</span>

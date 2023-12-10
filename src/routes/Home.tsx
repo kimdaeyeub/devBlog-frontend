@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../components/Card";
 import { useQuery } from "react-query";
 import { IPost } from "../types";

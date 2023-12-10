@@ -15,8 +15,10 @@ const LoginModal = ({ signUp }: IProp) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
+  //TODO:회원가입하고 난뒤에 로그인을 할려고 하면 회원가입 창이 뜸
   const queryClient = useQueryClient();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {
@@ -27,9 +29,12 @@ const LoginModal = ({ signUp }: IProp) => {
       setName(e.target.value);
     } else if (e.target.name === "passwordConfirm") {
       setPasswordConfirm(e.target.value);
+    } else if (e.target.name === "email") {
+      setEmail(e.target.value);
     }
   };
 
+  //FIXME: 로그인 정보가 틀릴경우 에러 핸들링이 되지 않음
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!signUp) {
@@ -41,10 +46,11 @@ const LoginModal = ({ signUp }: IProp) => {
       if (password !== passwordConfirm) {
         setError("비밀번호가 일치하지 않습니다.");
       } else {
-        await signUpAPI({ username, password, name });
+        await signUpAPI({ username, password, name, email });
         setLoginModal(false);
       }
     }
+    setLoginModal(false);
   };
   return (
     <form
@@ -59,6 +65,14 @@ const LoginModal = ({ signUp }: IProp) => {
             type="text"
             name="name"
             value={name}
+            onChange={onChange}
+          />
+          <input
+            className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg mb-2 outline-none"
+            placeholder="Email"
+            type="email"
+            name="email"
+            value={email}
             onChange={onChange}
           />
         </>

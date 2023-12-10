@@ -11,4 +11,15 @@ export interface IPost {
   updated_at: string;
   title: string;
   description: string;
+  categories: string;
+}
+
+export interface IUser {
+  avatar: string;
+  date_joined: string;
+  email: string;
+  id: number;
+  last_login: string;
+  name: string;
+  username: string;
 }
