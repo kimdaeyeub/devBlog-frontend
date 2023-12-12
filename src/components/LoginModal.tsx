@@ -18,7 +18,8 @@ const LoginModal = ({ signUp }: IProp) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  //TODO:회원가입하고 난뒤에 로그인을 할려고 하면 회원가입 창이 뜸
+  //TODO:로그인 에러핸들링하기
+  //HACK:회원가입하고 난뒤에 로그인을 할려고 하면 회원가입 창이 뜸
   const queryClient = useQueryClient();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "username") {
@@ -38,10 +39,14 @@ const LoginModal = ({ signUp }: IProp) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!signUp) {
-      await loginAPI(username, password);
+      const data = await loginAPI(username, password);
       queryClient.refetchQueries(["me"]);
       queryClient.refetchQueries(["posts"]);
-      setLoginModal(false);
+      if (data.message === "Success") {
+        setLoginModal(false);
+      } else {
+        setError(data.message);
+      }
     } else {
       if (password !== passwordConfirm) {
         setError("비밀번호가 일치하지 않습니다.");
@@ -50,7 +55,6 @@ const LoginModal = ({ signUp }: IProp) => {
         setLoginModal(false);
       }
     }
-    setLoginModal(false);
   };
   return (
     <form
@@ -112,7 +116,7 @@ const LoginModal = ({ signUp }: IProp) => {
       <input
         className="rounded-md w-full py-3 bg-black border-2 border-black text-white text-lg font-medium"
         type="submit"
-        value="Login"
+        value={signUp ? "회원가입" : "로그인"}
       />
     </form>
   );

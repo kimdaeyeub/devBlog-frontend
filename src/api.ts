@@ -99,3 +99,19 @@ export const editPostAPI = async ({ id, code }: IEditPost) =>
       },
     })
     .then((response) => response.data);
+
+interface IEditProfile {
+  username: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+export const editProfileAPI = async (code: IEditProfile) =>
+  instance
+    .put("users/me/", code, {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    })
+    .then((response) => response.data);

@@ -68,14 +68,32 @@ const Nav = ({ onClickLogin, onClickSignUp }: IProp) => {
               로그아웃
             </button>
             {/* 아바타 이미지 */}
-            <div
-              onClick={() => onClickAvatar("mobile")}
-              className="md:hidden flex w-14 h-14 rounded-full bg-gray-300"
-            />
-            <div
-              onClick={() => onClickAvatar("desktop")}
-              className="md:flex  hidden w-14 h-14 rounded-full bg-gray-300"
-            />
+            {data.avatar !== "" ? (
+              <img
+                onClick={() => onClickAvatar("mobile")}
+                src={data.avatar}
+                alt="avatar"
+                className="md:hidden flex w-14 h-14 rounded-full"
+              />
+            ) : (
+              <div
+                onClick={() => onClickAvatar("mobile")}
+                className="md:hidden flex w-14 h-14 rounded-full bg-gray-300 overflow-hidden"
+              />
+            )}
+            {data.avatar !== "" ? (
+              <img
+                onClick={() => onClickAvatar("desktop")}
+                src={data.avatar}
+                alt="avatar"
+                className="md:flex hidden w-14 h-14 rounded-full"
+              />
+            ) : (
+              <div
+                onClick={() => onClickAvatar("desktop")}
+                className="md:flex hidden w-14 h-14 rounded-full bg-gray-300"
+              />
+            )}
             {/*dropdown 메뉴*/}
             {toggleDropDown && (
               <div className="md:hidden absolute bg-white top-full right-0 min-w-[220px] min-h-[130px] rounded-lg mt-3 text-black flex flex-col justify-center items-center px-4 py-2">

@@ -5,6 +5,7 @@ import Home from "./routes/Home";
 import AddPost from "./routes/AddPost";
 import Profile from "./routes/Profile";
 import EditPost from "./routes/EditPost";
+import EditProfile from "./routes/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <Profile />,
+      },
+      {
+        path: "my-profile/edit",
+        element: <EditProfile />,
       },
       {
         path: "/post/:id/edit",

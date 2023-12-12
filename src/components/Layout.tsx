@@ -11,6 +11,7 @@ const Layout = () => {
   const [signUp, setSignUp] = useState(false);
   const onClickLogin = () => {
     setModal(true);
+    setSignUp(false);
   };
 
   const onClickSignUp = async () => {

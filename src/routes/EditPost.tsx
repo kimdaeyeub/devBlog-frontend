@@ -36,13 +36,11 @@ const EditPost = () => {
   const onSubmit = async () => {
     const code = { title, description: markdown, categories: tags };
     const id = params.id as string;
-    console.log(id);
     mutation.mutate({ id, code });
   };
 
   useEffect(() => {
     if (!isLoading && !isError) {
-      console.log(data);
       setTags(data?.categories as string);
       setTitle(data?.title as string);
       setMarkdown(data?.description as string);
